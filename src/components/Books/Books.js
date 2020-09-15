@@ -1,6 +1,12 @@
-import React, { Component } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import React, { Component, Fragment } from "react";
+import { Grid, Typography, Toolbar } from "@material-ui/core";
 import BookItem from "./BookItem";
+import Navbar from "../Navbar";
+import sImg from "../../assets/img/scince1.png";
+import techImg from "../../assets/img/tech1.png";
+import engImg from "../../assets/img/eng1.png";
+import mathImg from "../../assets/img/maths1.png";
+import otherImg from "../../assets/img/advert2.png";
 
 export default class Books extends Component {
 	state = {
@@ -13,52 +19,60 @@ export default class Books extends Component {
 				title: "Science",
 				desc:
 					"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto laudantium consectetur eos vitae esse quo, quas aliquid totam nostrum eaque officiis earum magnam provident soluta. Amet sapiente modi unde inventore.",
-				image: "https://bit.ly/2WNi2Ml",
+				image: sImg,
 			},
 
 			{
 				title: "Technology",
 				desc:
 					"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto laudantium consectetur eos vitae esse quo, quas aliquid totam nostrum eaque officiis earum magnam provident soluta. Amet sapiente modi unde inventore.",
-				image: "https://bit.ly/2WNi2Ml",
+				image: techImg,
 			},
 
 			{
 				title: "Mathematics",
 				desc:
 					"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto laudantium consectetur eos vitae esse quo, quas aliquid totam nostrum eaque officiis earum magnam provident soluta. Amet sapiente modi unde inventore.",
-				image: "https://bit.ly/2WNi2Ml",
+				image: mathImg,
 			},
 			{
 				title: "Engineering",
 				desc:
 					"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto laudantium consectetur eos vitae esse quo, quas aliquid totam nostrum eaque officiis earum magnam provident soluta. Amet sapiente modi unde inventore.",
-				image: "https://bit.ly/2WNi2Ml",
+				image: engImg,
 			},
 
 			{
 				title: "Others",
 				desc:
 					"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto laudantium consectetur eos vitae esse quo, quas aliquid totam nostrum eaque officiis earum magnam provident soluta. Amet sapiente modi unde inventore.",
-				image: "https://bit.ly/2WNi2Ml",
+				image: otherImg,
 			},
 		];
 		return (
-			<div style={{ marginTop: 20, padding: 20 }}>
-				<Typography
-					style={{ marginBottom: 20 }}
-					component="h1"
-					gutterBottom
-					variant="h5"
-				>
-					Book Category
-				</Typography>
-				<Grid container spacing={6} justify="flex-start" direction="row">
-					{dbooks.map((book) => (
-						<BookItem book={book} key={book.title} />
-					))}
+			<Fragment>
+				<Navbar />
+				<Toolbar />
+				<Grid container style={{ marginTop: 20, padding: 10 }}>
+					<Grid item xs={false} sm={1} md={false} lg={1}></Grid>
+					<Grid item container sm={10} md={12} lg={10} direction="column">
+						<Typography
+							style={{ marginBottom: 20 }}
+							component="h1"
+							gutterBottom
+							variant="h5"
+						>
+							Book Category
+						</Typography>
+						<Grid item container spacing={4}>
+							{dbooks.map((book) => (
+								<BookItem book={book} key={book.title} />
+							))}
+						</Grid>
+					</Grid>
+					<Grid item xs={false} sm={1} md={false} lg={1}></Grid>
 				</Grid>
-			</div>
+			</Fragment>
 		);
 	}
 }

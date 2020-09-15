@@ -14,20 +14,24 @@ import { LibraryBooks } from "@material-ui/icons";
 export default class BookItem extends Component {
 	render() {
 		const { book } = this.props;
-		console.log(book);
 		return (
-			<Grid item xm={12} sm={6} md={4} lg={3}>
+			<Grid item sm={6} md={4} lg={3}>
 				<Card>
 					<CardActionArea>
 						<CardMedia
 							component="img"
 							alt={book.title}
-							height="140"
+							height="240"
 							image={book.image}
 							title={book.title}
 						/>
 						<CardContent>
-							<Typography gutterBottom variant="h5" component="h2">
+							<Typography
+								gutterBottom
+								variant="h5"
+								component="h2"
+								color="secondary"
+							>
 								{book.title}
 							</Typography>
 							<Typography component="p">{book.desc}</Typography>
@@ -37,8 +41,8 @@ export default class BookItem extends Component {
 						<Button
 							variant="contained"
 							size="small"
-							color="secondary"
 							startIcon={<LibraryBooks />}
+							color="primary"
 						>
 							Browse
 						</Button>

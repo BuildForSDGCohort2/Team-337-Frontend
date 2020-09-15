@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import {
 	withWidth,
 	Hidden,
@@ -7,34 +8,28 @@ import {
 	Divider,
 	List,
 	ListItem,
-	ListItemIcon,
+	Button,
 	ListItemText,
 	AppBar,
 	Toolbar,
 	Typography,
-	Button,
 	Avatar,
 	Box,
 } from "@material-ui/core";
 import {
 	Menu,
 	ChevronLeft,
-	Home,
-	BugReport,
-	LibraryBooks,
-	VideoLibrary,
-	Bookmark,
-	Description,
-	Notifications,
-	VolumeDown,
 	ExpandMore,
+	Person,
+	PersonAdd,
 } from "@material-ui/icons";
-import { withRouter } from "react-router-dom";
-import logo from "../assets/img/logo12.png";
+import logo from "../../assets/img/logo12.png";
 
-function Navbar(props) {
-	const { history } = props;
+function Mainbar(props) {
+	const { history, auth, login } = props;
 	const [open, setOpen] = useState(false);
+	// const theme = useTheme();
+	// const sDwn = useMediaQuery(theme.breakpoints.down("sm"));
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -49,14 +44,8 @@ function Navbar(props) {
 	};
 
 	const menuitem = [
-		["Dashboard", <Home />, "/"],
-		["QnA", <BugReport />, "/qna"],
-		["Books", <LibraryBooks />, "/books"],
-		["Articles", <Description />, "/articles"],
-		["Videos", <VideoLibrary />, "/videos"],
-		["Jobs", <Notifications />, "/jobs"],
-		["Events", <Bookmark />, "events"],
-		["Annoucement", <VolumeDown />, "anouncement"],
+		["Pricing", "/pricing"],
+		["FAQ", "/faq"],
 	];
 
 	return (
@@ -78,12 +67,7 @@ function Navbar(props) {
 					style={{ height: "5vh" }}
 					onClick={() => handleClick("/")}
 				></img>
-				{/* <Typography variant="h4" color="primary">
-					STEM
-				</Typography>
-				<Typography variant="h4" color="secondary" style={{ marginRight: 20 }}>
-					XUS
-				</Typography> */}
+
 				<div style={{ width: "100%" }}>
 					<Box display="flex">
 						<Box flexGrow={1}>
@@ -94,11 +78,9 @@ function Navbar(props) {
 											{menuitem.map((it) => (
 												<ListItemText
 													key={it[0]}
-													onClick={() => handleClick(it[2])}
+													onClick={() => handleClick(it[1])}
 												>
-													<Button color="secondary" startIcon={it[1]}>
-														{it[0]}
-													</Button>
+													<Button color="primary">{it[0]}</Button>
 												</ListItemText>
 											))}
 										</ListItem>
@@ -107,20 +89,52 @@ function Navbar(props) {
 							</Hidden>
 						</Box>
 						<Box flexDirection="row" display="flex">
-							<Hidden smDown>
-								<Avatar style={{ marginTop: 18, marginRight: 5 }}>DS</Avatar>
-								<Typography
-									variant="body1"
-									color="primary"
-									style={{ marginTop: 25 }}
-								>
-									Desire Seyram
-								</Typography>
-								<ExpandMore
-									color="primary"
-									style={{ marginTop: 25, marginRight: 5 }}
-								/>
-							</Hidden>
+							{auth ? (
+								<Hidden smDown>
+									<Avatar style={{ marginTop: 18, marginRight: 5 }}>DS</Avatar>
+									<Typography
+										variant="body1"
+										color="primary"
+										style={{ marginTop: 25 }}
+									>
+										Desire Seyram
+									</Typography>
+									<ExpandMore
+										color="primary"
+										style={{ marginTop: 25, marginRight: 5 }}
+									/>
+								</Hidden>
+							) : (
+								<div style={{ marginTop: 18 }}>
+									{login ? (
+										<Button
+											variant="contained"
+											size="small"
+											startIcon={<PersonAdd style={{ color: "white" }} />}
+											color="primary"
+											style={{ margin: 5, color: "white" }}
+											onClick={() => {
+												handleClick("/register");
+											}}
+										>
+											Register
+										</Button>
+									) : (
+										<Button
+											variant="contained"
+											size="small"
+											startIcon={<Person style={{ color: "white" }} />}
+											color="primary"
+											style={{ margin: 5, color: "white" }}
+											onClick={() => {
+												handleClick("/login");
+											}}
+										>
+											Login
+										</Button>
+									)}
+								</div>
+							)}
 						</Box>
 					</Box>
 				</div>
@@ -140,8 +154,7 @@ function Navbar(props) {
 						<Divider />
 						<List>
 							{menuitem.map((it) => (
-								<ListItem button key={it[0]} onClick={() => handleClick(it[2])}>
-									<ListItemIcon color="secondary">{it[1]}</ListItemIcon>
+								<ListItem button key={it[0]} onClick={() => handleClick(it[1])}>
 									<ListItemText color="secondary" primary={it[0]} />
 								</ListItem>
 							))}
@@ -168,4 +181,4 @@ function Navbar(props) {
 	);
 }
 
-export default withRouter(withWidth()(Navbar));
+export default withRouter(withWidth()(Mainbar));
